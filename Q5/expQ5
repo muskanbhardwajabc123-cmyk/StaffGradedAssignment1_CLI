@@ -1,1 +1,19 @@
+Storage Health Assessment Report
 
+1. Available storage devices
+Command: lsblk
+Observation: Executing `lsblk` gave me a clear view of the physical storage drives and their respective partitions currently recognized by the system.
+
+2. Mounted file systems & 3. Disk usage statistics
+Command: df -h
+Observation: The `df -h` command translates disk space metrics into a human-readable format, clearly detailing the total capacity, utilized space, and remaining availability across all active mount points.
+
+4. Inode utilization
+Command: df -i
+Observation: The `df -i` command provides visibility into the total number of used and available Inodes. Monitoring this is essential, as inode depletion will block new file creation entirely, regardless of how much physical storage space remains.
+
+5. Storage health observations
+Reviewing the gathered metrics, the primary root partition maintains more than enough available capacity to support the new application server. Inode usage is similarly stable and shows no signs of imminent exhaustion.
+
+6. Recommendations for improving storage utilization
+To proactively maintain storage health, the administration team should deploy log rotation utilities to keep `/var/log` sizes manageable over time. Furthermore, setting up automated alerts based on `df -h` and `df -i` metrics will ensure the team is notified before utilization reaches critical thresholds.
