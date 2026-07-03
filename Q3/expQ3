@@ -1,1 +1,41 @@
+File System and Link Analysis Report
 
+1. Metadata collected using Linux utilities
+Command: stat original_file.txt
+Output:
+  File: original_file.txt
+  Size: 21              Blocks: 8          IO Block: 4096   regular file
+Device: 8,48    Inode: 46434       Links: 1
+Access: (0664/-rw-rw-r--)  Uid: ( 1001/muskan_bhardwaj)   Gid: ( 1001/muskan_bhardwaj)
+Access: 2026-07-03 17:14:31.791945915 +0000
+Modify: 2026-07-03 17:14:31.791945915 +0000
+Change: 2026-07-03 17:14:31.791945915 +0000
+ Birth: 2026-07-03 17:14:31.791945915 +0000
+Observation: Running `stat` provides comprehensive details about the file, such as the exact timestamps for access and modification, its block size, and its unique Inode identifier.
+
+2. Inode numbers of all files
+Command: ls -li original_file.txt hard_link.txt sym_link.txt
+Output:
+46434 -rw-rw-r-- 2 muskan_bhardwaj muskan_bhardwaj 21 Jul  3 17:14 hard_link.txt
+46434 -rw-rw-r-- 2 muskan_bhardwaj muskan_bhardwaj 21 Jul  3 17:14 original_file.txt
+46435 lrwxrwxrwx 1 muskan_bhardwaj muskan_bhardwaj 17 Jul  3 17:15 sym_link.txt -> original_file.txt
+Observation: The output demonstrates that the original text file and the hard link are assigned the identical Inode number. Conversely, the symbolic link possesses its own distinct Inode.
+
+3. Effect of deleting the original file
+Commands:
+rm original_file.txt
+cat hard_link.txt
+cat sym_link.txt
+Output:
+muskan_bhardwaj@LAPTOP-JR42J90G:~$ cat hard_link.txt
+Learning Linux Links
+muskan_bhardwaj@LAPTOP-JR42J90G:~$ cat sym_link.txt
+cat: sym_link.txt: No such file or directory
+Observation: Removing the original file does not destroy the data, as the hard link can still successfully read it. The symbolic link, however, becomes broken and returns an error because its target path is no longer valid.
+
+4. Comparison between hard link and symbolic link
+- Hard Link: This acts as an additional, direct reference to the physical data blocks (the Inode) on the hard drive. Deleting the original filename does not erase the data as long as a hard link remains. Hard links are restricted to the same file system.
+- Symbolic Link: This functions merely as a shortcut pointing to the text string of the original file's path. It contains a separate Inode. If the target file is renamed or deleted, the symbolic link is rendered useless. Unlike hard links, they can cross different file systems.
+
+5. Conclusions drawn from the experiment
+The Linux file system separates the human-readable file name from the actual data (the Inode). Because hard links map directly to the Inode, they preserve the data independently of the original file name. Symbolic links only map to the path, meaning they are entirely dependent on the original file remaining in its exact location to function.
