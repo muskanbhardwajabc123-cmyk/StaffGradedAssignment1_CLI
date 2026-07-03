@@ -1,1 +1,46 @@
+Linux Environment Verification Report
 
+1. Username and groups
+Command: id
+Output: 
+uid=1001(muskan_bhardwaj) gid=1001(muskan_bhardwaj) groups=1001(muskan_bhardwaj),27(sudo),100(users)
+Observation: By running the `id` command, I was able to display my active user ID, username, and the specific group memberships assigned to my account.
+
+2. Current shell being used
+Command: echo $SHELL
+Output: 
+/bin/bash
+Observation: Executing `echo $SHELL` allowed me to identify the default command-line interpreter configured for my user environment.
+
+3. Current working directory
+Command: pwd
+Output: 
+/home/muskan_bhardwaj
+Observation: The `pwd` command prints the absolute path of the directory I am currently navigating, confirming my location in the file system.
+
+4. List of files and directories in workspace
+Command: ls -la
+Output: 
+total 24
+drwxr-x--- 3 muskan_bhardwaj muskan_bhardwaj 4096 Jul  3 16:35 .
+drwxr-xr-x 4 root            root            4096 Jul  3 16:32 ..
+-rw-r--r-- 1 muskan_bhardwaj muskan_bhardwaj  220 Jul  3 16:32 .bash_logout
+-rw-r--r-- 1 muskan_bhardwaj muskan_bhardwaj 3771 Jul  3 16:32 .bashrc
+drwxr-xr-x 2 muskan_bhardwaj muskan_bhardwaj 4096 Jul  3 16:35 .landscape
+-rw-rw-r-- 1 muskan_bhardwaj muskan_bhardwaj    0 Jul  3 16:35 .motd_shown
+-rw-r--r-- 1 muskan_bhardwaj muskan_bhardwaj  807 Jul  3 16:32 .profile
+Observation: The `ls -la` flag combination provides a comprehensive list of all contents in the directory, revealing hidden files and detailing their specific access permissions.
+
+5. Network connectivity verification result
+Command: ping -c 4 google.com
+Output: 
+PING google.com (192.178.174.113) 56(84) bytes of data.
+64 bytes from lcbomo-in-f113.1e100.net (192.178.174.113): icmp_seq=1 ttl=115 time=18.3 ms
+64 bytes from lcbomo-in-f113.1e100.net (192.178.174.113): icmp_seq=2 ttl=115 time=16.0 ms
+64 bytes from lcbomo-in-f113.1e100.net (192.178.174.113): icmp_seq=3 ttl=115 time=18.3 ms
+64 bytes from lcbomo-in-f113.1e100.net (192.178.174.113): icmp_seq=4 ttl=115 time=16.5 ms
+
+--- google.com ping statistics ---
+4 packets transmitted, 4 received, 0% packet loss, time 3003ms
+rtt min/avg/max/mdev = 16.037/17.278/18.293/1.011 ms
+Observation: Using the `ping` utility with a count of 4, I confirmed that the system can successfully transmit and receive network packets to an external server, verifying internet access.
